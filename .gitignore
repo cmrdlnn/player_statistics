@@ -1,0 +1,4 @@
+ansible/roles
+.vagrant
+*.log
+.irb_history

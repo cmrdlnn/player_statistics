@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/app_init'
+require_relative '../lib/player_statistics'
+
+top5 = PlayerStatistics::Services::Players::Top.call(*ARGV)
+
+if top5.empty?
+  p 'No one player has performed'
+else
+  top5.each do |result|
+    p "Player #{result[:full_name]} has performed #{result[:performed_times]}" \
+      ' times'
+  end
+end

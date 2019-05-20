@@ -1,0 +1,39 @@
+---
+- hosts: local
+  remote_user: vagrant
+  become: yes
+
+  pre_tasks:
+    - name: Autofollow to project on logon
+      lineinfile:
+        dest: "/home/vagrant/.bashrc"
+        regexp: "^cd /vagrant"
+        line: "cd /vagrant"
+
+    - name: Set env variable
+      lineinfile:
+        dest: "/home/vagrant/.bashrc"
+        regexp: "^export {{ item.var }}="
+        line: "export {{ item.var }}={{ item.value }}"
+      with_items:
+      - { var: "PLAYER_STATISTICS_ENV", value: "development" }
+
+    - name: Install a list of APT packages
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - build-essential
+          - libpq-dev
+
+  post_tasks:
+    - name: Install Ruby gems
+      command: ${HOME}/.rbenv/shims/bundle install --deployment
+
+    - name: Run migration for databases
+      command: make migrate && PLAYER_STATISTICS_ENV=test make migrate
+
+  roles:
+    - role: rbenv
+    - role: ntp
+    - role: postgresql

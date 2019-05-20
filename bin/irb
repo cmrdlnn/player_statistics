@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Скрипт, запускающий IRB
+
+require_relative '../config/app_init'
+require_relative '../lib/player_statistics'
+
+require 'irb'
+require 'irb/completion'
+
+begin
+  require_relative '../spec/spec_helper'
+rescue LoadError
+  nil
+end
+
+IRB.start

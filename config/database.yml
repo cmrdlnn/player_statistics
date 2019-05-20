@@ -1,0 +1,17 @@
+---
+default: &default
+  adapter: postgres
+  user: <%= ENV['PLAYER_STATISTICS_DB_USER'] %>
+  password: <%= ENV['PLAYER_STATISTICS_DB_PASS'] %>
+  host: <%= ENV['PLAYER_STATISTICS_DB_HOST'] %>
+  port: <%= ENV['PLAYER_STATISTICS_DB_PORT'] %>
+  database: <%= ENV['PLAYER_STATISTICS_DB_NAME'] %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default

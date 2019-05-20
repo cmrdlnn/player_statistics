@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/app_init'
+require_relative '../lib/player_statistics'
+
+service = PlayerStatistics::Services::Players::FullfillPerformance
+errors = service::Errors
+
+begin
+  service.call(*ARGV)
+
+  p "Successfully marked that player #{ARGV[0]} fullfill performance " \
+    "`#{ARGV[2]}` in game `#{ARGV[1]}`"
+rescue errors::PlayerGameMissing,
+       errors::NoPerformance,
+       errors::AlreadyFullfilled => e
+  p e.message
+end

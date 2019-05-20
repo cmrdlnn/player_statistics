@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../config/app_init'
+require_relative '../lib/player_statistics'
+
+performed = PlayerStatistics::Services::Players::CheckPerformance.call(*ARGV)
+result = performed ? '' : 'n\'t'
+
+p "Player `#{ARGV[0]}` has#{result} fulfilled performance `#{ARGV[2]}` in game `#{ARGV[1]}`"
