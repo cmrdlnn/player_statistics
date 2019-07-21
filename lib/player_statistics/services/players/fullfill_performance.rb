@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-require_relative '../mixins/filter'
 require_relative 'fullfill_performance/errors'
 
 module PlayerStatistics
   module Services
     module Players
       class FullfillPerformance
-        include Mixins::Filter
-
         def self.call(player, game, performance)
           new(player, game, performance).call
         end
@@ -57,8 +54,8 @@ module PlayerStatistics
         end
 
         def with_player_and_game_filter(dataset)
-          dataset.where(filter(:players, :full_name, @player))
-                 .where(filter(:games, :description, @game))
+          dataset.where(Sequel[:players][:id] => @player)
+                 .where(Sequel[:games][:id] => @game)
         end
 
         def find_performance!
@@ -69,7 +66,7 @@ module PlayerStatistics
         end
 
         def with_performance_filter(dataset)
-          dataset.where(filter(:performances, :description, @performance))
+          dataset.where(Sequel[:performances][:id] => @performance)
         end
       end
     end

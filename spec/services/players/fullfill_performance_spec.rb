@@ -22,35 +22,8 @@ RSpec.describe PlayerStatistics::Services::Players::FullfillPerformance do
       expect(player.performances).to eq([performance])
     end
 
-    describe 'when `player` argument is his full name' do
-      let(:player_arg) { player.full_name }
-
-      it do
-        subject
-        expect(player.performances).to eq([performance])
-      end
-    end
-
-    describe 'when `game` argument is it description' do
-      let(:game_arg) { game.description }
-
-      it do
-        subject
-        expect(player.performances).to eq([performance])
-      end
-    end
-
-    describe 'when `performance` argument is it description' do
-      let(:performance_arg) { performance.description }
-
-      it do
-        subject
-        expect(player.performances).to eq([performance])
-      end
-    end
-
     describe 'when the specified game doesn\'t exist' do
-      let(:game_arg) { 'doesn\'t exist' }
+      let(:game_arg) { -1 }
 
       it do
         expect { subject }
@@ -59,7 +32,7 @@ RSpec.describe PlayerStatistics::Services::Players::FullfillPerformance do
     end
 
     describe 'when the specified player doesn\'t exist' do
-      let(:player_arg) { 'doesn\'t exist' }
+      let(:player_arg) { -1 }
 
       it do
         expect { subject }
@@ -68,7 +41,7 @@ RSpec.describe PlayerStatistics::Services::Players::FullfillPerformance do
     end
 
     describe 'when the performance doesn\'t exist' do
-      let(:performance_arg) { 'doesn\'t exist' }
+      let(:performance_arg) { -1 }
 
       it do
         expect { subject }

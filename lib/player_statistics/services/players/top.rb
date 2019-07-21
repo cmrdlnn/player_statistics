@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../mixins/filter'
-
 module PlayerStatistics
   module Services
     module Players
       class Top
-        include Mixins::Filter
-
         def self.call(performance, team = nil)
           new(performance, team).call
         end
@@ -56,15 +52,11 @@ module PlayerStatistics
 
         def with_team_filter(dataset)
           return dataset unless @team
-          dataset.where(
-            filter(:teams, :name, @team)
-          )
+          dataset.where(Sequel[:teams][:id] => @team)
         end
 
         def with_performance_filter(dataset)
-          dataset.where(
-            filter(:performances, :description, @performance)
-          )
+          dataset.where(Sequel[:performances][:id] => @performance)
         end
       end
     end

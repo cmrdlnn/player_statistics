@@ -26,38 +26,20 @@ RSpec.describe PlayerStatistics::Services::Players::CheckPerformance do
 
     it { is_expected.to eq(true) }
 
-    describe 'when `player` argument is his full name' do
-      let(:player_arg) { player.full_name }
-
-      it { is_expected.to eq(true) }
-    end
-
-    describe 'when `game` argument is it description' do
-      let(:game_arg) { game.description }
-
-      it { is_expected.to eq(true) }
-    end
-
-    describe 'when `performance` argument is it description' do
-      let(:performance_arg) { performance.description }
-
-      it { is_expected.to eq(true) }
-    end
-
     describe 'when the specified game doesn\'t exist' do
-      let(:game_arg) { 'doesn\'t exist' }
+      let(:game_arg) { -1 }
 
       it { is_expected.to eq(false) }
     end
 
     describe 'when the specified player doesn\'t exist' do
-      let(:player_arg) { 'doesn\'t exist' }
+      let(:player_arg) { -1 }
 
       it { is_expected.to eq(false) }
     end
 
     describe 'when the performance doesn\'t exist' do
-      let(:performance_arg) { 'doesn\'t exist' }
+      let(:performance_arg) { -1 }
 
       it { is_expected.to eq(false) }
     end

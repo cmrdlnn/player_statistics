@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../mixins/filter'
-
 module PlayerStatistics
   module Services
     module Players
       class CheckPerformance
-        include Mixins::Filter
-
         def self.call(player, game, performance)
           new(player, game, performance).call
         end
@@ -37,9 +33,9 @@ module PlayerStatistics
         end
 
         def with_filters(dataset)
-          dataset.where(filter(:players, :full_name, @player))
-                 .where(filter(:games, :description, @game))
-                 .where(filter(:performances, :description, @performance))
+          dataset.where(Sequel[:players][:id] => @player)
+                 .where(Sequel[:games][:id] => @game)
+                 .where(Sequel[:performances][:id] => @performance)
         end
       end
     end

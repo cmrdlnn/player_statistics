@@ -8,11 +8,6 @@ Sequel.migration do
       column :name,       :text
       column :created_at, 'timestamp with time zone'
       column :updated_at, 'timestamp with time zone'
-
-      index :name,
-            name:    :teams_name_trgm_index,
-            type:    :gin,
-            opclass: :gin_trgm_ops
     end
   end
 end

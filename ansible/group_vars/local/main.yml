@@ -36,12 +36,3 @@ postgresql_user_privileges:
 
 postgresql_listen_addresses:
   - '*'
-
-postgresql_database_extensions:
-  - db: player_statistics
-    extensions:
-      - pg_trgm
-
-  - db: player_statistics_test
-    extensions:
-      - pg_trgm

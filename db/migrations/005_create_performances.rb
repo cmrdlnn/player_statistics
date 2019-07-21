@@ -8,11 +8,6 @@ Sequel.migration do
       column :description, :text
       column :created_at,  'timestamp with time zone'
       column :updated_at,  'timestamp with time zone'
-
-      index :description,
-            name:    :performances_description_trgm_index,
-            type:    :gin,
-            opclass: :gin_trgm_ops
     end
   end
 end
