@@ -28,10 +28,11 @@
 
   post_tasks:
     - name: Install Ruby gems
-      command: ${HOME}/.rbenv/shims/bundle install --deployment
-
-    - name: Run migration for databases
-      command: make migrate && PLAYER_STATISTICS_ENV=test make migrate
+      become: false
+      bundler:
+        executable: ~/.rbenv/shims/bundle
+        gemfile: /vagrant/Gemfile
+        state: present
 
   roles:
     - role: rbenv
